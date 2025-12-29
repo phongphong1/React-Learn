@@ -1,4 +1,9 @@
 [book]
 title = "React V1.0"
-authors = []
-language = "en"
+authors = ["LetGauCode"]
+language = "vi"
+src = "src"
+
+[output.html]
+git-repository-url = "https://github.com/phongphong1/React-Learn"
+print = { enable = true }

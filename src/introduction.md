@@ -8,14 +8,14 @@ Chào mừng bạn đến với **React Mastery Course** - khóa học React chu
 
 ## 🎯 Mục tiêu khóa học
 
-✅ Hiểu sâu về React và Virtual DOM
-✅ Thành thạo Hooks (useState, useEffect, useContext, custom hooks)
-✅ Xây dựng form với validation (React Hook Form + Zod)
-✅ Quản lý state hiệu quả (Context API, Zustand)
-✅ Routing với React Router DOM
-✅ Kết nối với Backend Spring Boot qua REST API
-✅ JWT Authentication
-✅ Build fullstack application hoàn chỉnh
+- ✅ Hiểu sâu về React và Virtual DOM
+- ✅ Thành thạo Hooks (useState, useEffect, useContext, custom hooks)
+- ✅ Xây dựng form với validation (React Hook Form + Zod)
+- ✅ Quản lý state hiệu quả (Context API, Zustand)
+- ✅ Routing với React Router DOM
+- ✅ Kết nối với Backend Spring Boot qua REST API
+- ✅ JWT Authentication
+- ✅ Build fullstack application hoàn chỉnh
 
 ---
 
@@ -162,12 +162,12 @@ Sau mỗi bài học:
 
 Sau khi hoàn thành khóa học này, bạn sẽ có thể:
 
-✅ Xây dựng React applications từ đầu
-✅ Quản lý state hiệu quả
-✅ Kết nối với REST API backend
-✅ Implement authentication với JWT
-✅ Build fullstack applications
-✅ Tự tin apply cho vị trí React Developer
+- ✅ Xây dựng React applications từ đầu
+- ✅ Quản lý state hiệu quả
+- ✅ Kết nối với REST API backend
+- ✅ Implement authentication với JWT
+- ✅ Build fullstack applications
+- ✅ Tự tin apply cho vị trí React Developer
 
 ---
 
