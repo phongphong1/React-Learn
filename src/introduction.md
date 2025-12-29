@@ -21,25 +21,25 @@ Chào mừng bạn đến với **React Mastery Course** - khóa học React chu
 
 ## 📚 Nội dung khóa học
 
-### [01 - Kiến thức nền tảng](./src/chapter_1.md)
+### [01 - Kiến thức nền tảng](./chapter_1.md)
 - Virtual DOM là gì?
 - Tại sao nên dùng React thay vì JavaScript thuần?
 - So sánh MVC (Spring Boot) vs Component-based (React)
 
-### [02 - Setup môi trường với Vite](./src/chapter_2.md)
+### [02 - Setup môi trường với Vite](./chapter_2.md)
 - Giới thiệu Vite
 - Cài đặt và cấu hình project
 - Cấu trúc thư mục chuẩn
 - Environment variables
 
-### [03 - JSX và Props](./src/chapter_3.md)
+### [03 - JSX và Props](./chapter_3.md)
 - JSX syntax
 - Props - truyền dữ liệu giữa components
 - Props vs Parameters trong Java
 - Props Destructuring
 - PropTypes validation
 
-### [04 - State và useState](./src/chapter_4.md)
+### [04 - State và useState](./chapter_4.md)
 - State là gì?
 - useState Hook
 - Cơ chế re-render
@@ -47,7 +47,7 @@ Chào mừng bạn đến với **React Mastery Course** - khóa học React chu
 - Update object và array state
 - State Lifting
 
-### [05 - useEffect và Lifecycle](./src/chapter_5.md)
+### [05 - useEffect và Lifecycle](./chapter_5.md)
 - Side effects
 - useEffect Hook
 - Component lifecycle
@@ -55,7 +55,7 @@ Chào mừng bạn đến với **React Mastery Course** - khóa học React chu
 - Cleanup function
 - Call API với useEffect
 
-### [06 - Form và Validation](./src/chapter_6.md)
+### [06 - Form và Validation](./chapter_6.md)
 - Controlled vs Uncontrolled components
 - Xử lý form
 - Validation thủ công
@@ -63,7 +63,7 @@ Chào mừng bạn đến với **React Mastery Course** - khóa học React chu
 - Zod schema validation
 - Best practices
 
-### [07 - Context API và Zustand](./src/chapter_7.md)
+### [07 - Context API và Zustand](./chapter_7.md)
 - State Management
 - Props Drilling problem
 - Context API
@@ -71,7 +71,7 @@ Chào mừng bạn đến với **React Mastery Course** - khóa học React chu
 - Zustand
 - Khi nào dùng gì?
 
-### [08 - React Router DOM](./src/chapter_8.md)
+### [08 - React Router DOM](./chapter_8.md)
 - SPA và Client-side Routing
 - Setup Router
 - Dynamic Routes
@@ -80,7 +80,7 @@ Chào mừng bạn đến với **React Mastery Course** - khóa học React chu
 - Protected Routes
 - Query Parameters
 
-### [09 - Call API Backend Java](./src/chapter_9.md)
+### [09 - Call API Backend Java](./chapter_9.md)
 - Kiến trúc Frontend-Backend
 - HTTP Methods và REST API
 - Setup Axios
@@ -89,7 +89,7 @@ Chào mừng bạn đến với **React Mastery Course** - khóa học React chu
 - Error handling
 - API Service Layer
 
-### [10 - Project thực hành: FitHub Mini](./src/chapter_10.md)
+### [10 - Project thực hành: FitHub Mini](./chapter_10.md)
 - Xây dựng ứng dụng quản lý khóa học gym
 - Authentication
 - CRUD operations
