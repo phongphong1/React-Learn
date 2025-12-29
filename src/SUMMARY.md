@@ -1,5 +1,6 @@
 # Summary
 
+- [Introduction](./introduction.md)
 - [Chapter 1: Kiến Thức Nền Tảng React](./chapter_1.md)
 - [Chapter 2: Setup Môi Trường với Vite](./chapter_2.md)
 - [Chapter 3: JSX và Props](./chapter_3.md)

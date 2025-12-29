@@ -1,0 +1,569 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Chapter 1: Kiến Thức Nền Tảng React - React V1.0</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-5a670d9a.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-025f5852.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">React V1.0</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="01---kiến-thức-nền-tảng-react"><a class="header" href="#01---kiến-thức-nền-tảng-react">01 - Kiến Thức Nền Tảng React</a></h1>
+<h2 id="-mục-lục"><a class="header" href="#-mục-lục">📚 Mục Lục</a></h2>
+<ol>
+<li><a href="#giới-thiệu-về-react">Giới thiệu về React</a></li>
+<li><a href="#virtual-dom-là-gì">Virtual DOM là gì?</a></li>
+<li><a href="#tại-sao-nên-dùng-react">Tại sao nên dùng React thay vì JavaScript thuần?</a></li>
+<li><a href="#so-sánh-mvc-vs-component-based">So sánh MVC (Spring Boot) vs Component-based (React)</a></li>
+<li><a href="#ví-dụ-thực-tế">Ví dụ thực tế</a></li>
+<li><a href="#bài-tập-thực-hành">Bài tập thực hành</a></li>
+</ol>
+<hr>
+<h2 id="-giới-thiệu-về-react"><a class="header" href="#-giới-thiệu-về-react">🎯 Giới thiệu về React</a></h2>
+<p>React là một <strong>thư viện JavaScript</strong> được phát triển bởi Facebook (Meta) để xây dựng giao diện người dùng (UI). React tập trung vào việc:</p>
+<ul>
+<li><strong>Xây dựng UI theo component</strong>: Chia nhỏ giao diện thành các thành phần độc lập, có thể tái sử dụng</li>
+<li><strong>Quản lý state hiệu quả</strong>: Tự động cập nhật UI khi dữ liệu thay đổi</li>
+<li><strong>Hiệu năng cao</strong>: Sử dụng Virtual DOM để tối ưu hóa việc render</li>
+</ul>
+<blockquote>
+<p>💡 <strong>So sánh với Java</strong>: Nếu Spring Boot giúp bạn xây dựng backend với các <strong>Bean</strong>, <strong>Service</strong>, <strong>Controller</strong> độc lập, thì React giúp bạn xây dựng frontend với các <strong>Component</strong> độc lập.</p>
+</blockquote>
+<hr>
+<h2 id="-virtual-dom-là-gì"><a class="header" href="#-virtual-dom-là-gì">🌳 Virtual DOM là gì?</a></h2>
+<h3 id="định-nghĩa"><a class="header" href="#định-nghĩa">Định nghĩa</a></h3>
+<p><strong>Virtual DOM</strong> (DOM ảo) là một bản sao nhẹ của DOM thực (Real DOM) được lưu trong bộ nhớ. React sử dụng Virtual DOM để:</p>
+<ol>
+<li><strong>Tính toán sự khác biệt</strong> (diffing algorithm)</li>
+<li><strong>Chỉ cập nhật những phần thay đổi</strong> thay vì render lại toàn bộ trang</li>
+</ol>
+<h3 id="cách-hoạt-động"><a class="header" href="#cách-hoạt-động">Cách hoạt động</a></h3>
+<pre><code>[State thay đổi]
+    ↓
+[Tạo Virtual DOM mới]
+    ↓
+[So sánh với Virtual DOM cũ (Diffing)]
+    ↓
+[Xác định những gì cần thay đổi]
+    ↓
+[Cập nhật Real DOM (chỉ phần thay đổi)]
+</code></pre>
+<h3 id="so-sánh-với-javascript-thuần"><a class="header" href="#so-sánh-với-javascript-thuần">So sánh với JavaScript thuần</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th><strong>JavaScript Thuần</strong></th><th><strong>React với Virtual DOM</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>Thao tác trực tiếp với DOM</td><td>Thao tác với Virtual DOM</td></tr>
+<tr><td>Phải tự quản lý update</td><td>React tự động quản lý update</td></tr>
+<tr><td>Re-render toàn bộ hoặc phức tạp</td><td>Chỉ re-render phần cần thiết</td></tr>
+<tr><td>Hiệu năng kém khi ứng dụng lớn</td><td>Hiệu năng tối ưu</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="ví-dụ-minh-họa"><a class="header" href="#ví-dụ-minh-họa">Ví dụ minh họa</a></h3>
+<pre><code class="language-jsx">// JavaScript thuần - Phải thao tác DOM thủ công
+function updateCounter() {
+  const counterElement = document.getElementById('counter');
+  let count = parseInt(counterElement.innerText);
+  count++;
+  counterElement.innerText = count; // Thao tác trực tiếp với DOM
+}
+
+// React - Chỉ cần thay đổi state, React tự update DOM
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;{count}&lt;/p&gt;
+      &lt;button onClick={() =&gt; setCount(count + 1)}&gt;Tăng&lt;/button&gt;
+    &lt;/div&gt;
+  );
+  // React tự động phát hiện thay đổi và update DOM
+}
+</code></pre>
+<hr>
+<h2 id="-tại-sao-nên-dùng-react"><a class="header" href="#-tại-sao-nên-dùng-react">💡 Tại sao nên dùng React?</a></h2>
+<h3 id="1-component-based-architecture"><a class="header" href="#1-component-based-architecture">1. <strong>Component-based Architecture</strong></a></h3>
+<ul>
+<li>Chia nhỏ UI thành các component có thể tái sử dụng</li>
+<li>Dễ bảo trì và mở rộng</li>
+<li>Tương tự việc bạn chia nhỏ code Java thành các Class/Interface</li>
+</ul>
+<h3 id="2-declarative-khai-báo-thay-vì-imperative-mệnh-lệnh"><a class="header" href="#2-declarative-khai-báo-thay-vì-imperative-mệnh-lệnh">2. <strong>Declarative (Khai báo) thay vì Imperative (Mệnh lệnh)</strong></a></h3>
+<pre><code class="language-javascript">// JavaScript thuần (Imperative - Mệnh lệnh)
+const button = document.createElement('button');
+button.innerText = 'Click me';
+button.addEventListener('click', handleClick);
+document.body.appendChild(button);
+
+// React (Declarative - Khai báo)
+&lt;button onClick={handleClick}&gt;Click me&lt;/button&gt;
+</code></pre>
+<blockquote>
+<p>💡 <strong>Giống Java Stream API</strong>: Imperative như <code>for loop</code> cổ điển, Declarative như <code>stream().map().filter()</code></p>
+</blockquote>
+<h3 id="3-hệ-sinh-thái-mạnh-mẽ"><a class="header" href="#3-hệ-sinh-thái-mạnh-mẽ">3. <strong>Hệ sinh thái mạnh mẽ</strong></a></h3>
+<ul>
+<li>React Router (Routing)</li>
+<li>Redux/Zustand (State Management)</li>
+<li>React Query (Data Fetching)</li>
+<li>Next.js (Framework)</li>
+</ul>
+<h3 id="4-hiệu-năng-cao"><a class="header" href="#4-hiệu-năng-cao">4. <strong>Hiệu năng cao</strong></a></h3>
+<ul>
+<li>Virtual DOM</li>
+<li>Code Splitting</li>
+<li>Lazy Loading</li>
+</ul>
+<hr>
+<h2 id="-so-sánh-mvc-vs-component-based"><a class="header" href="#-so-sánh-mvc-vs-component-based">🏗️ So sánh MVC vs Component-based</a></h2>
+<h3 id="mô-hình-mvc-spring-boot"><a class="header" href="#mô-hình-mvc-spring-boot">Mô hình MVC (Spring Boot)</a></h3>
+<pre><code>┌─────────────┐
+│   View      │ ← Hiển thị (Thymeleaf, JSP)
+│  (JSP/HTML) │
+└──────┬──────┘
+       │
+┌──────▼──────┐
+│ Controller  │ ← Xử lý request, gọi Service
+│ (@RestCtrl) │
+└──────┬──────┘
+       │
+┌──────▼──────┐
+│   Service   │ ← Business Logic
+│ (@Service)  │
+└──────┬──────┘
+       │
+┌──────▼──────┐
+│   Model     │ ← Dữ liệu (Entity)
+│  (Entity)   │
+└─────────────┘
+</code></pre>
+<h3 id="mô-hình-component-based-react"><a class="header" href="#mô-hình-component-based-react">Mô hình Component-based (React)</a></h3>
+<pre><code>┌─────────────────────────────┐
+│      App Component          │
+│  (Quản lý state + logic)    │
+└────────────┬────────────────┘
+             │
+     ┌───────┴────────┐
+     │                │
+┌────▼─────┐   ┌─────▼────┐
+│ Header   │   │  Content │
+│Component │   │Component │
+└──────────┘   └────┬─────┘
+                    │
+            ┌───────┴────────┐
+            │                │
+      ┌─────▼─────┐   ┌─────▼─────┐
+      │   List    │   │   Detail  │
+      │ Component │   │ Component │
+      └───────────┘   └───────────┘
+</code></pre>
+<h3 id="sự-khác-biệt-chính"><a class="header" href="#sự-khác-biệt-chính">Sự khác biệt chính</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th><strong>MVC (Spring Boot)</strong></th><th><strong>Component-based (React)</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>Tách biệt rõ ràng View, Controller, Model</td><td>UI = Component (chứa cả logic lẫn view)</td></tr>
+<tr><td>Server-side rendering</td><td>Client-side rendering (chủ yếu)</td></tr>
+<tr><td>Page reload khi chuyển trang</td><td>Single Page Application (SPA)</td></tr>
+<tr><td>Stateless (REST API)</td><td>Stateful (State management)</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="ví-dụ-so-sánh"><a class="header" href="#ví-dụ-so-sánh">Ví dụ so sánh</a></h3>
+<p><strong>Spring Boot Controller:</strong></p>
+<pre><code class="language-java">@RestController
+@RequestMapping("/api/users")
+public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    @GetMapping("/{id}")
+    public ResponseEntity&lt;UserDTO&gt; getUser(@PathVariable Long id) {
+        UserDTO user = userService.getUserById(id);
+        return ResponseEntity.ok(user);
+    }
+}
+</code></pre>
+<p><strong>React Component tương đương:</strong></p>
+<pre><code class="language-jsx">import { useState, useEffect } from 'react';
+import axios from 'axios';
+
+function UserProfile({ userId }) {
+  const [user, setUser] = useState(null);
+
+  useEffect(() =&gt; {
+    // Gọi API giống như gọi Service trong Spring
+    axios.get(`/api/users/${userId}`)
+      .then(response =&gt; setUser(response.data))
+      .catch(error =&gt; console.error(error));
+  }, [userId]);
+
+  if (!user) return &lt;div&gt;Loading...&lt;/div&gt;;
+
+  return (
+    &lt;div className="user-profile"&gt;
+      &lt;h2&gt;{user.name}&lt;/h2&gt;
+      &lt;p&gt;{user.email}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<hr>
+<h2 id="-ví-dụ-thực-tế"><a class="header" href="#-ví-dụ-thực-tế">🔥 Ví dụ thực tế</a></h2>
+<h3 id="tạo-counter-app-đơn-giản"><a class="header" href="#tạo-counter-app-đơn-giản">Tạo Counter App đơn giản</a></h3>
+<pre><code class="language-jsx">import { useState } from 'react';
+
+function Counter() {
+  // State giống như biến instance trong Java Class
+  const [count, setCount] = useState(0);
+
+  // Method xử lý logic
+  const handleIncrement = () =&gt; {
+    setCount(count + 1);
+  };
+
+  const handleDecrement = () =&gt; {
+    setCount(count - 1);
+  };
+
+  const handleReset = () =&gt; {
+    setCount(0);
+  };
+
+  return (
+    &lt;div className="counter"&gt;
+      &lt;h1&gt;Counter: {count}&lt;/h1&gt;
+
+      &lt;div className="buttons"&gt;
+        &lt;button onClick={handleIncrement}&gt;➕ Tăng&lt;/button&gt;
+        &lt;button onClick={handleDecrement}&gt;➖ Giảm&lt;/button&gt;
+        &lt;button onClick={handleReset}&gt;🔄 Reset&lt;/button&gt;
+      &lt;/div&gt;
+
+      {/* Conditional Rendering */}
+      {count &gt; 10 &amp;&amp; (
+        &lt;p style={{ color: 'red' }}&gt;
+          ⚠️ Số đếm đã vượt quá 10!
+        &lt;/p&gt;
+      )}
+    &lt;/div&gt;
+  );
+}
+
+export default Counter;
+</code></pre>
+<h3 id="so-sánh-với-java-class"><a class="header" href="#so-sánh-với-java-class">So sánh với Java Class</a></h3>
+<pre><code class="language-java">// Tương đương trong Java
+public class Counter {
+    private int count = 0; // Giống state trong React
+
+    public void increment() {
+        this.count++;
+        render(); // React tự động làm việc này
+    }
+
+    public void decrement() {
+        this.count--;
+        render();
+    }
+
+    public void reset() {
+        this.count = 0;
+        render();
+    }
+
+    private void render() {
+        // Cập nhật UI - React làm tự động qua Virtual DOM
+        System.out.println("Counter: " + count);
+    }
+}
+</code></pre>
+<hr>
+<h2 id="-bài-tập-thực-hành"><a class="header" href="#-bài-tập-thực-hành">📝 Bài tập thực hành</a></h2>
+<h3 id="bài-1-phân-tích-kiến-trúc"><a class="header" href="#bài-1-phân-tích-kiến-trúc">Bài 1: Phân tích kiến trúc</a></h3>
+<p>Hãy so sánh một ứng dụng quản lý sản phẩm:</p>
+<p><strong>Spring Boot:</strong></p>
+<ul>
+<li>ProductController</li>
+<li>ProductService</li>
+<li>ProductRepository</li>
+<li>Product Entity</li>
+</ul>
+<p><strong>React sẽ có:</strong></p>
+<ul>
+<li>??? Component nào?</li>
+<li>??? State nào cần quản lý?</li>
+</ul>
+<h3 id="bài-2-tư-duy-component"><a class="header" href="#bài-2-tư-duy-component">Bài 2: Tư duy Component</a></h3>
+<p>Hãy vẽ sơ đồ component tree cho một trang Blog đơn giản gồm:</p>
+<ul>
+<li>Header (Logo + Menu)</li>
+<li>Danh sách bài viết (List)</li>
+<li>Chi tiết bài viết (Detail)</li>
+<li>Footer</li>
+</ul>
+<h3 id="bài-3-code-challenge"><a class="header" href="#bài-3-code-challenge">Bài 3: Code Challenge</a></h3>
+<p>Hãy tạo một Component <code>TodoCounter</code> hiển thị:</p>
+<ul>
+<li>Tổng số todo</li>
+<li>Số todo đã hoàn thành</li>
+<li>Số todo chưa hoàn thành</li>
+<li>Nút để reset tất cả</li>
+</ul>
+<p><strong>Gợi ý cấu trúc:</strong></p>
+<pre><code class="language-jsx">function TodoCounter() {
+  const [todos, setTodos] = useState([
+    { id: 1, text: 'Học React', completed: false },
+    { id: 2, text: 'Làm bài tập', completed: true }
+  ]);
+
+  // Viết logic của bạn ở đây
+
+  return (
+    // JSX của bạn ở đây
+  );
+}
+</code></pre>
+<hr>
+<h2 id="-tổng-kết"><a class="header" href="#-tổng-kết">🎓 Tổng kết</a></h2>
+<p>Sau bài học này, bạn đã hiểu:</p>
+<p>✅ Virtual DOM giúp React render hiệu quả hơn JS thuần
+✅ React sử dụng Component-based architecture thay vì MVC truyền thống
+✅ Declarative programming giúp code dễ đọc, dễ maintain hơn
+✅ React phù hợp cho SPA, trong khi Spring Boot phù hợp cho backend API</p>
+<p><strong>Bài tiếp theo:</strong> <a href="02-setup-moi-truong-vite.html">02 - Setup môi trường với Vite</a></p>
+<hr>
+<blockquote>
+<p>💬 <strong>Tips</strong>: Hãy nghĩ về React Component như một <strong>Java Bean</strong> - nó encapsulate cả data (state) và behavior (methods), nhưng thay vì trả về JSON, nó trả về UI!</p>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="introduction.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="chapter_2.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="introduction.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="chapter_2.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

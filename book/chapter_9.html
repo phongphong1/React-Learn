@@ -1,0 +1,1138 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Chapter 9: Call API Backend Java (Spring Boot) - React V1.0</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-5a670d9a.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-025f5852.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">React V1.0</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="09---call-api-backend-java-spring-boot"><a class="header" href="#09---call-api-backend-java-spring-boot">09 - Call API Backend Java (Spring Boot)</a></h1>
+<h2 id="-mục-lục"><a class="header" href="#-mục-lục">📚 Mục Lục</a></h2>
+<ol>
+<li><a href="#kiến-trúc-frontend-backend">Kiến trúc Frontend-Backend</a></li>
+<li><a href="#http-methods-và-rest-api">HTTP Methods và REST API</a></li>
+<li><a href="#axios-vs-fetch">Axios vs Fetch</a></li>
+<li><a href="#setup-axios">Setup Axios</a></li>
+<li><a href="#cors-configuration">CORS Configuration</a></li>
+<li><a href="#authentication-với-jwt">Authentication với JWT</a></li>
+<li><a href="#error-handling">Error Handling</a></li>
+<li><a href="#api-service-layer">API Service Layer</a></li>
+<li><a href="#ví-dụ-thực-tế">Ví dụ thực tế</a></li>
+<li><a href="#bài-tập-thực-hành">Bài tập thực hành</a></li>
+</ol>
+<hr>
+<h2 id="-kiến-trúc-frontend-backend"><a class="header" href="#-kiến-trúc-frontend-backend">🏗️ Kiến trúc Frontend-Backend</a></h2>
+<h3 id="mô-hình-client-server"><a class="header" href="#mô-hình-client-server">Mô hình Client-Server</a></h3>
+<pre><code>┌─────────────────┐           ┌──────────────────┐
+│   React App     │           │  Spring Boot     │
+│  (Frontend)     │           │   (Backend)      │
+│                 │           │                  │
+│  - Components   │  HTTP     │  - Controllers   │
+│  - State        │ ◄────────►│  - Services      │
+│  - Axios/Fetch  │  Requests │  - Repositories  │
+│                 │           │  - Database      │
+└─────────────────┘           └──────────────────┘
+     Port 3000                      Port 8080
+</code></pre>
+<h3 id="communication-flow"><a class="header" href="#communication-flow">Communication Flow</a></h3>
+<pre><code>User Action
+    ↓
+React Component
+    ↓
+Call API (Axios)
+    ↓
+HTTP Request → Spring Boot Controller
+                    ↓
+                Service Layer
+                    ↓
+                Repository
+                    ↓
+                Database (MySQL)
+                    ↓
+Response ← ← ← ← ← ←
+    ↓
+Update State
+    ↓
+Re-render UI
+</code></pre>
+<hr>
+<h2 id="-http-methods-và-rest-api"><a class="header" href="#-http-methods-và-rest-api">🌐 HTTP Methods và REST API</a></h2>
+<h3 id="http-methods"><a class="header" href="#http-methods">HTTP Methods</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th><strong>Method</strong></th><th><strong>CRUD</strong></th><th><strong>Ý nghĩa</strong></th><th><strong>Spring Annotation</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>GET</td><td>Read</td><td>Lấy dữ liệu</td><td><code>@GetMapping</code></td></tr>
+<tr><td>POST</td><td>Create</td><td>Tạo mới</td><td><code>@PostMapping</code></td></tr>
+<tr><td>PUT</td><td>Update</td><td>Cập nhật toàn bộ</td><td><code>@PutMapping</code></td></tr>
+<tr><td>PATCH</td><td>Update</td><td>Cập nhật một phần</td><td><code>@PatchMapping</code></td></tr>
+<tr><td>DELETE</td><td>Delete</td><td>Xóa</td><td><code>@DeleteMapping</code></td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="rest-api-endpoints-spring-boot"><a class="header" href="#rest-api-endpoints-spring-boot">REST API Endpoints (Spring Boot)</a></h3>
+<pre><code class="language-java">@RestController
+@RequestMapping("/api/users")
+public class UserController {
+
+    // GET /api/users - Lấy tất cả users
+    @GetMapping
+    public List&lt;UserDTO&gt; getAllUsers() {
+        return userService.findAll();
+    }
+
+    // GET /api/users/123 - Lấy user theo ID
+    @GetMapping("/{id}")
+    public UserDTO getUserById(@PathVariable Long id) {
+        return userService.findById(id);
+    }
+
+    // POST /api/users - Tạo user mới
+    @PostMapping
+    public UserDTO createUser(@RequestBody UserDTO user) {
+        return userService.create(user);
+    }
+
+    // PUT /api/users/123 - Update user
+    @PutMapping("/{id}")
+    public UserDTO updateUser(@PathVariable Long id, @RequestBody UserDTO user) {
+        return userService.update(id, user);
+    }
+
+    // DELETE /api/users/123 - Xóa user
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable Long id) {
+        userService.delete(id);
+    }
+}
+</code></pre>
+<hr>
+<h2 id="-axios-vs-fetch"><a class="header" href="#-axios-vs-fetch">⚔️ Axios vs Fetch</a></h2>
+<h3 id="so-sánh"><a class="header" href="#so-sánh">So sánh</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th><strong>Tiêu chí</strong></th><th><strong>Axios</strong></th><th><strong>Fetch</strong></th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Built-in</strong></td><td>❌ Cần cài (npm)</td><td>✅ Native browser</td></tr>
+<tr><td><strong>JSON parsing</strong></td><td>✅ Tự động</td><td>❌ Phải <code>.json()</code></td></tr>
+<tr><td><strong>Request/Response interceptors</strong></td><td>✅ Có</td><td>❌ Không</td></tr>
+<tr><td><strong>Timeout</strong></td><td>✅ Có</td><td>❌ Không (phải tự implement)</td></tr>
+<tr><td><strong>Error handling</strong></td><td>✅ Tốt hơn</td><td>⚠️ Cần check <code>response.ok</code></td></tr>
+<tr><td><strong>Cancel request</strong></td><td>✅ Có</td><td>⚠️ AbortController</td></tr>
+<tr><td><strong>Browser support</strong></td><td>✅ Rộng</td><td>⚠️ IE không support</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="ví-dụ-so-sánh"><a class="header" href="#ví-dụ-so-sánh">Ví dụ so sánh</a></h3>
+<p><strong>Fetch:</strong></p>
+<pre><code class="language-jsx">// Fetch API
+fetch('/api/users')
+  .then(response =&gt; {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json(); // Phải parse JSON thủ công
+  })
+  .then(data =&gt; console.log(data))
+  .catch(error =&gt; console.error(error));
+</code></pre>
+<p><strong>Axios:</strong></p>
+<pre><code class="language-jsx">// Axios (Đơn giản hơn)
+axios.get('/api/users')
+  .then(response =&gt; console.log(response.data)) // Tự động parse JSON
+  .catch(error =&gt; console.error(error));
+</code></pre>
+<blockquote>
+<p>💡 <strong>Khuyến nghị</strong>: Dùng <strong>Axios</strong> cho dự án thực tế vì có nhiều features và dễ dùng hơn.</p>
+</blockquote>
+<hr>
+<h2 id="-setup-axios"><a class="header" href="#-setup-axios">🔧 Setup Axios</a></h2>
+<h3 id="1-cài-đặt"><a class="header" href="#1-cài-đặt">1. Cài đặt</a></h3>
+<pre><code class="language-bash">npm install axios
+</code></pre>
+<h3 id="2-axios-instance-với-base-config"><a class="header" href="#2-axios-instance-với-base-config">2. Axios Instance với Base Config</a></h3>
+<pre><code class="language-jsx">// src/services/api.js
+import axios from 'axios';
+
+// Tạo axios instance với config mặc định
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8080/api',
+  timeout: 10000, // 10 seconds
+  headers: {
+    'Content-Type': 'application/json'
+  }
+});
+
+// Request Interceptor (chạy trước mỗi request)
+api.interceptors.request.use(
+  (config) =&gt; {
+    // Thêm JWT token vào header
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    console.log('Request:', config.method.toUpperCase(), config.url);
+    return config;
+  },
+  (error) =&gt; {
+    return Promise.reject(error);
+  }
+);
+
+// Response Interceptor (chạy sau mỗi response)
+api.interceptors.response.use(
+  (response) =&gt; {
+    console.log('Response:', response.status, response.data);
+    return response;
+  },
+  (error) =&gt; {
+    // Xử lý error global
+    if (error.response) {
+      // Server trả về error response
+      console.error('Error Response:', error.response.status, error.response.data);
+
+      // 401 Unauthorized → Redirect to login
+      if (error.response.status === 401) {
+        localStorage.removeItem('token');
+        window.location.href = '/login';
+      }
+
+      // 403 Forbidden
+      if (error.response.status === 403) {
+        alert('You do not have permission to access this resource');
+      }
+    } else if (error.request) {
+      // Request được gửi nhưng không nhận được response
+      console.error('No response received:', error.request);
+    } else {
+      // Lỗi khác
+      console.error('Error:', error.message);
+    }
+
+    return Promise.reject(error);
+  }
+);
+
+export default api;
+</code></pre>
+<h3 id="3-environment-variables"><a class="header" href="#3-environment-variables">3. Environment Variables</a></h3>
+<pre><code class="language-bash"># .env.development
+VITE_API_URL=http://localhost:8080/api
+
+# .env.production
+VITE_API_URL=https://api.yourdomain.com/api
+</code></pre>
+<hr>
+<h2 id="-cors-configuration"><a class="header" href="#-cors-configuration">🌍 CORS Configuration</a></h2>
+<h3 id="vấn-đề-cors"><a class="header" href="#vấn-đề-cors">Vấn đề CORS</a></h3>
+<p>CORS (Cross-Origin Resource Sharing) error xảy ra khi:</p>
+<ul>
+<li>Frontend: <code>http://localhost:3000</code></li>
+<li>Backend: <code>http://localhost:8080</code></li>
+<li>❌ Browser block request vì khác origin</li>
+</ul>
+<h3 id="giải-pháp-1-config-cors-trong-spring-boot"><a class="header" href="#giải-pháp-1-config-cors-trong-spring-boot">Giải pháp 1: Config CORS trong Spring Boot</a></h3>
+<pre><code class="language-java">// Spring Boot - CorsConfig.java
+@Configuration
+public class CorsConfig {
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/api/**")
+                    .allowedOrigins("http://localhost:3000", "http://localhost:5173")
+                    .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                    .allowedHeaders("*")
+                    .allowCredentials(true)
+                    .maxAge(3600);
+            }
+        };
+    }
+}
+
+// Hoặc dùng @CrossOrigin trên Controller
+@RestController
+@RequestMapping("/api/users")
+@CrossOrigin(origins = "http://localhost:3000")
+public class UserController {
+    // ...
+}
+</code></pre>
+<h3 id="giải-pháp-2-proxy-trong-vite-development"><a class="header" href="#giải-pháp-2-proxy-trong-vite-development">Giải pháp 2: Proxy trong Vite (Development)</a></h3>
+<pre><code class="language-javascript">// vite.config.js
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        // rewrite: (path) =&gt; path.replace(/^\/api/, '')
+      }
+    }
+  }
+});
+</code></pre>
+<p>Khi dùng proxy:</p>
+<pre><code class="language-jsx">// Frontend chỉ cần gọi: /api/users
+// Vite tự động forward đến: http://localhost:8080/api/users
+axios.get('/api/users');
+</code></pre>
+<hr>
+<h2 id="-authentication-với-jwt"><a class="header" href="#-authentication-với-jwt">🔐 Authentication với JWT</a></h2>
+<h3 id="flow-jwt-authentication"><a class="header" href="#flow-jwt-authentication">Flow JWT Authentication</a></h3>
+<pre><code>1. User login
+   → POST /api/auth/login { email, password }
+
+2. Backend validate
+   → Return { token: "jwt-token", user: {...} }
+
+3. Frontend lưu token
+   → localStorage.setItem('token', token)
+
+4. Mọi request sau đó
+   → Header: Authorization: Bearer jwt-token
+
+5. Backend verify token
+   → Return data hoặc 401 Unauthorized
+</code></pre>
+<h3 id="1-login-api"><a class="header" href="#1-login-api">1. Login API</a></h3>
+<pre><code class="language-jsx">// src/services/authService.js
+import api from './api';
+
+export const authService = {
+  // Login
+  async login(email, password) {
+    const response = await api.post('/auth/login', { email, password });
+    const { token, user } = response.data;
+
+    // Lưu token và user info
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(user));
+
+    return { token, user };
+  },
+
+  // Register
+  async register(userData) {
+    const response = await api.post('/auth/register', userData);
+    return response.data;
+  },
+
+  // Logout
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+  },
+
+  // Get current user
+  getCurrentUser() {
+    const userStr = localStorage.getItem('user');
+    return userStr ? JSON.parse(userStr) : null;
+  },
+
+  // Check if logged in
+  isLoggedIn() {
+    return !!localStorage.getItem('token');
+  }
+};
+</code></pre>
+<h3 id="2-spring-boot-jwt-controller"><a class="header" href="#2-spring-boot-jwt-controller">2. Spring Boot JWT Controller</a></h3>
+<pre><code class="language-java">@RestController
+@RequestMapping("/api/auth")
+public class AuthController {
+
+    @Autowired
+    private AuthService authService;
+
+    @PostMapping("/login")
+    public ResponseEntity&lt;?&gt; login(@RequestBody LoginRequest loginRequest) {
+        try {
+            String token = authService.authenticate(
+                loginRequest.getEmail(),
+                loginRequest.getPassword()
+            );
+
+            User user = authService.getUserByEmail(loginRequest.getEmail());
+
+            return ResponseEntity.ok(new AuthResponse(token, user));
+        } catch (Exception e) {
+            return ResponseEntity.status(401)
+                .body(new ErrorResponse("Invalid credentials"));
+        }
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity&lt;?&gt; register(@Valid @RequestBody RegisterRequest request) {
+        User user = authService.register(request);
+        return ResponseEntity.ok(user);
+    }
+
+    @GetMapping("/me")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity&lt;User&gt; getCurrentUser() {
+        User user = authService.getCurrentUser();
+        return ResponseEntity.ok(user);
+    }
+}
+</code></pre>
+<h3 id="3-sử-dụng-trong-component"><a class="header" href="#3-sử-dụng-trong-component">3. Sử dụng trong Component</a></h3>
+<pre><code class="language-jsx">import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { authService } from '../services/authService';
+
+function LoginPage() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) =&gt; {
+    e.preventDefault();
+
+    try {
+      setLoading(true);
+      setError('');
+
+      await authService.login(email, password);
+
+      // Navigate to dashboard after successful login
+      navigate('/dashboard');
+    } catch (err) {
+      setError(err.response?.data?.message || 'Login failed');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    &lt;form onSubmit={handleSubmit}&gt;
+      &lt;h2&gt;Login&lt;/h2&gt;
+
+      {error &amp;&amp; &lt;div className="error"&gt;{error}&lt;/div&gt;}
+
+      &lt;input
+        type="email"
+        value={email}
+        onChange={(e) =&gt; setEmail(e.target.value)}
+        placeholder="Email"
+        required
+      /&gt;
+
+      &lt;input
+        type="password"
+        value={password}
+        onChange={(e) =&gt; setPassword(e.target.value)}
+        placeholder="Password"
+        required
+      /&gt;
+
+      &lt;button type="submit" disabled={loading}&gt;
+        {loading ? 'Logging in...' : 'Login'}
+      &lt;/button&gt;
+    &lt;/form&gt;
+  );
+}
+</code></pre>
+<hr>
+<h2 id="-error-handling"><a class="header" href="#-error-handling">⚠️ Error Handling</a></h2>
+<h3 id="1-error-types"><a class="header" href="#1-error-types">1. Error Types</a></h3>
+<pre><code class="language-jsx">axios.get('/api/users')
+  .catch(error =&gt; {
+    if (error.response) {
+      // Server trả về response với status code khác 2xx
+      console.log('Status:', error.response.status);
+      console.log('Data:', error.response.data);
+      console.log('Headers:', error.response.headers);
+
+      // 400 Bad Request
+      // 401 Unauthorized
+      // 403 Forbidden
+      // 404 Not Found
+      // 500 Internal Server Error
+
+    } else if (error.request) {
+      // Request được gửi nhưng không nhận được response
+      console.log('Request:', error.request);
+      // Network error, server down, timeout
+
+    } else {
+      // Lỗi khác (setup request, etc.)
+      console.log('Error:', error.message);
+    }
+  });
+</code></pre>
+<h3 id="2-custom-error-handler"><a class="header" href="#2-custom-error-handler">2. Custom Error Handler</a></h3>
+<pre><code class="language-jsx">// src/utils/errorHandler.js
+export const handleAPIError = (error) =&gt; {
+  if (error.response) {
+    const { status, data } = error.response;
+
+    switch (status) {
+      case 400:
+        return data.message || 'Bad Request';
+      case 401:
+        return 'Unauthorized. Please login again.';
+      case 403:
+        return 'You do not have permission to access this resource.';
+      case 404:
+        return 'Resource not found.';
+      case 500:
+        return 'Internal Server Error. Please try again later.';
+      default:
+        return data.message || 'An error occurred';
+    }
+  } else if (error.request) {
+    return 'Network error. Please check your internet connection.';
+  } else {
+    return error.message || 'An unexpected error occurred';
+  }
+};
+
+// Sử dụng
+import { handleAPIError } from '../utils/errorHandler';
+
+try {
+  await api.get('/api/users');
+} catch (error) {
+  const errorMessage = handleAPIError(error);
+  setError(errorMessage);
+}
+</code></pre>
+<h3 id="3-spring-boot-error-response"><a class="header" href="#3-spring-boot-error-response">3. Spring Boot Error Response</a></h3>
+<pre><code class="language-java">// ErrorResponse.java
+@Data
+public class ErrorResponse {
+    private int status;
+    private String message;
+    private long timestamp;
+
+    public ErrorResponse(int status, String message) {
+        this.status = status;
+        this.message = message;
+        this.timestamp = System.currentTimeMillis();
+    }
+}
+
+// GlobalExceptionHandler.java
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity&lt;ErrorResponse&gt; handleNotFound(ResourceNotFoundException ex) {
+        ErrorResponse error = new ErrorResponse(404, ex.getMessage());
+        return ResponseEntity.status(404).body(error);
+    }
+
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity&lt;ErrorResponse&gt; handleValidation(ValidationException ex) {
+        ErrorResponse error = new ErrorResponse(400, ex.getMessage());
+        return ResponseEntity.status(400).body(error);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity&lt;ErrorResponse&gt; handleGeneral(Exception ex) {
+        ErrorResponse error = new ErrorResponse(500, "Internal Server Error");
+        return ResponseEntity.status(500).body(error);
+    }
+}
+</code></pre>
+<hr>
+<h2 id="-api-service-layer"><a class="header" href="#-api-service-layer">🏢 API Service Layer</a></h2>
+<p>Tổ chức code theo Service Layer pattern (giống Spring Boot).</p>
+<h3 id="1-user-service"><a class="header" href="#1-user-service">1. User Service</a></h3>
+<pre><code class="language-jsx">// src/services/userService.js
+import api from './api';
+
+export const userService = {
+  // GET /api/users
+  async getAllUsers() {
+    const response = await api.get('/users');
+    return response.data;
+  },
+
+  // GET /api/users/:id
+  async getUserById(id) {
+    const response = await api.get(`/users/${id}`);
+    return response.data;
+  },
+
+  // POST /api/users
+  async createUser(userData) {
+    const response = await api.post('/users', userData);
+    return response.data;
+  },
+
+  // PUT /api/users/:id
+  async updateUser(id, userData) {
+    const response = await api.put(`/users/${id}`, userData);
+    return response.data;
+  },
+
+  // DELETE /api/users/:id
+  async deleteUser(id) {
+    await api.delete(`/users/${id}`);
+  },
+
+  // GET /api/users/search?q=query
+  async searchUsers(query) {
+    const response = await api.get('/users/search', {
+      params: { q: query }
+    });
+    return response.data;
+  }
+};
+</code></pre>
+<h3 id="2-product-service"><a class="header" href="#2-product-service">2. Product Service</a></h3>
+<pre><code class="language-jsx">// src/services/productService.js
+import api from './api';
+
+export const productService = {
+  async getProducts(page = 1, limit = 10, category = null) {
+    const response = await api.get('/products', {
+      params: { page, limit, category }
+    });
+    return response.data;
+  },
+
+  async getProductById(id) {
+    const response = await api.get(`/products/${id}`);
+    return response.data;
+  },
+
+  async createProduct(productData) {
+    // Upload ảnh
+    const formData = new FormData();
+    formData.append('name', productData.name);
+    formData.append('price', productData.price);
+    formData.append('image', productData.image); // File object
+
+    const response = await api.post('/products', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+    return response.data;
+  },
+
+  async updateProduct(id, productData) {
+    const response = await api.put(`/products/${id}`, productData);
+    return response.data;
+  },
+
+  async deleteProduct(id) {
+    await api.delete(`/products/${id}`);
+  }
+};
+</code></pre>
+<h3 id="3-sử-dụng-trong-component-1"><a class="header" href="#3-sử-dụng-trong-component-1">3. Sử dụng trong Component</a></h3>
+<pre><code class="language-jsx">import { useState, useEffect } from 'react';
+import { userService } from '../services/userService';
+import { handleAPIError } from '../utils/errorHandler';
+
+function UserList() {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() =&gt; {
+    fetchUsers();
+  }, []);
+
+  const fetchUsers = async () =&gt; {
+    try {
+      setLoading(true);
+      const data = await userService.getAllUsers();
+      setUsers(data);
+    } catch (err) {
+      setError(handleAPIError(err));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDelete = async (userId) =&gt; {
+    if (!window.confirm('Are you sure?')) return;
+
+    try {
+      await userService.deleteUser(userId);
+      // Refresh list
+      fetchUsers();
+    } catch (err) {
+      alert(handleAPIError(err));
+    }
+  };
+
+  if (loading) return &lt;div&gt;Loading...&lt;/div&gt;;
+  if (error) return &lt;div&gt;Error: {error}&lt;/div&gt;;
+
+  return (
+    &lt;div&gt;
+      &lt;h2&gt;Users&lt;/h2&gt;
+      &lt;table&gt;
+        &lt;thead&gt;
+          &lt;tr&gt;
+            &lt;th&gt;ID&lt;/th&gt;
+            &lt;th&gt;Name&lt;/th&gt;
+            &lt;th&gt;Email&lt;/th&gt;
+            &lt;th&gt;Actions&lt;/th&gt;
+          &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+          {users.map(user =&gt; (
+            &lt;tr key={user.id}&gt;
+              &lt;td&gt;{user.id}&lt;/td&gt;
+              &lt;td&gt;{user.name}&lt;/td&gt;
+              &lt;td&gt;{user.email}&lt;/td&gt;
+              &lt;td&gt;
+                &lt;button onClick={() =&gt; handleDelete(user.id)}&gt;Delete&lt;/button&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          ))}
+        &lt;/tbody&gt;
+      &lt;/table&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<hr>
+<h2 id="-ví-dụ-thực-tế"><a class="header" href="#-ví-dụ-thực-tế">🔥 Ví dụ thực tế</a></h2>
+<h3 id="complete-crud-với-spring-boot-backend"><a class="header" href="#complete-crud-với-spring-boot-backend">Complete CRUD với Spring Boot Backend</a></h3>
+<pre><code class="language-jsx">// src/pages/ProductManagement.jsx
+import { useState, useEffect } from 'react';
+import { productService } from '../services/productService';
+
+function ProductManagement() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [editingProduct, setEditingProduct] = useState(null);
+  const [formData, setFormData] = useState({
+    name: '',
+    price: 0,
+    category: '',
+    description: ''
+  });
+
+  useEffect(() =&gt; {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () =&gt; {
+    try {
+      setLoading(true);
+      const data = await productService.getProducts();
+      setProducts(data);
+    } catch (error) {
+      console.error('Fetch error:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSubmit = async (e) =&gt; {
+    e.preventDefault();
+
+    try {
+      if (editingProduct) {
+        // Update
+        await productService.updateProduct(editingProduct.id, formData);
+      } else {
+        // Create
+        await productService.createProduct(formData);
+      }
+
+      // Reset form
+      setFormData({ name: '', price: 0, category: '', description: '' });
+      setEditingProduct(null);
+
+      // Refresh list
+      fetchProducts();
+    } catch (error) {
+      alert('Error: ' + error.message);
+    }
+  };
+
+  const handleEdit = (product) =&gt; {
+    setEditingProduct(product);
+    setFormData({
+      name: product.name,
+      price: product.price,
+      category: product.category,
+      description: product.description
+    });
+  };
+
+  const handleDelete = async (id) =&gt; {
+    if (!window.confirm('Delete this product?')) return;
+
+    try {
+      await productService.deleteProduct(id);
+      fetchProducts();
+    } catch (error) {
+      alert('Delete error: ' + error.message);
+    }
+  };
+
+  if (loading) return &lt;div&gt;Loading...&lt;/div&gt;;
+
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Product Management&lt;/h1&gt;
+
+      {/* Form */}
+      &lt;form onSubmit={handleSubmit}&gt;
+        &lt;input
+          value={formData.name}
+          onChange={(e) =&gt; setFormData({ ...formData, name: e.target.value })}
+          placeholder="Name"
+          required
+        /&gt;
+
+        &lt;input
+          type="number"
+          value={formData.price}
+          onChange={(e) =&gt; setFormData({ ...formData, price: parseFloat(e.target.value) })}
+          placeholder="Price"
+          required
+        /&gt;
+
+        &lt;input
+          value={formData.category}
+          onChange={(e) =&gt; setFormData({ ...formData, category: e.target.value })}
+          placeholder="Category"
+        /&gt;
+
+        &lt;textarea
+          value={formData.description}
+          onChange={(e) =&gt; setFormData({ ...formData, description: e.target.value })}
+          placeholder="Description"
+        /&gt;
+
+        &lt;button type="submit"&gt;
+          {editingProduct ? 'Update' : 'Create'} Product
+        &lt;/button&gt;
+
+        {editingProduct &amp;&amp; (
+          &lt;button type="button" onClick={() =&gt; {
+            setEditingProduct(null);
+            setFormData({ name: '', price: 0, category: '', description: '' });
+          }}&gt;
+            Cancel
+          &lt;/button&gt;
+        )}
+      &lt;/form&gt;
+
+      {/* Product List */}
+      &lt;table&gt;
+        &lt;thead&gt;
+          &lt;tr&gt;
+            &lt;th&gt;Name&lt;/th&gt;
+            &lt;th&gt;Price&lt;/th&gt;
+            &lt;th&gt;Category&lt;/th&gt;
+            &lt;th&gt;Actions&lt;/th&gt;
+          &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+          {products.map(product =&gt; (
+            &lt;tr key={product.id}&gt;
+              &lt;td&gt;{product.name}&lt;/td&gt;
+              &lt;td&gt;${product.price}&lt;/td&gt;
+              &lt;td&gt;{product.category}&lt;/td&gt;
+              &lt;td&gt;
+                &lt;button onClick={() =&gt; handleEdit(product)}&gt;Edit&lt;/button&gt;
+                &lt;button onClick={() =&gt; handleDelete(product.id)}&gt;Delete&lt;/button&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          ))}
+        &lt;/tbody&gt;
+      &lt;/table&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<hr>
+<h2 id="-bài-tập-thực-hành"><a class="header" href="#-bài-tập-thực-hành">📝 Bài tập thực hành</a></h2>
+<h3 id="bài-1-user-management"><a class="header" href="#bài-1-user-management">Bài 1: User Management</a></h3>
+<p>Tạo trang quản lý user:</p>
+<ul>
+<li>Fetch danh sách users từ Spring Boot backend</li>
+<li>CRUD operations: Create, Read, Update, Delete</li>
+<li>Search users by name/email</li>
+<li>Pagination</li>
+<li>Error handling</li>
+</ul>
+<h3 id="bài-2-blog-post-với-comments"><a class="header" href="#bài-2-blog-post-với-comments">Bài 2: Blog Post với Comments</a></h3>
+<ul>
+<li>Fetch posts với comments</li>
+<li>Create new post</li>
+<li>Add comment to post</li>
+<li>Edit/Delete own posts</li>
+<li>JWT authentication required</li>
+</ul>
+<h3 id="bài-3-shopping-cart"><a class="header" href="#bài-3-shopping-cart">Bài 3: Shopping Cart</a></h3>
+<ul>
+<li>Add to cart (POST /api/cart)</li>
+<li>Get cart items (GET /api/cart)</li>
+<li>Update quantity (PUT /api/cart/:id)</li>
+<li>Remove from cart (DELETE /api/cart/:id)</li>
+<li>Checkout (POST /api/orders)</li>
+</ul>
+<h3 id="bài-4-file-upload"><a class="header" href="#bài-4-file-upload">Bài 4: File Upload</a></h3>
+<ul>
+<li>Upload avatar (POST /api/users/:id/avatar)</li>
+<li>Upload multiple product images</li>
+<li>Display uploaded images</li>
+<li>Spring Boot handle multipart/form-data</li>
+</ul>
+<hr>
+<h2 id="-tổng-kết"><a class="header" href="#-tổng-kết">🎓 Tổng kết</a></h2>
+<p>Sau bài học này, bạn đã hiểu:</p>
+<p>✅ Kiến trúc Frontend-Backend với React và Spring Boot
+✅ HTTP Methods và REST API
+✅ Setup Axios với interceptors
+✅ CORS configuration
+✅ JWT Authentication flow
+✅ Error handling best practices
+✅ API Service Layer pattern</p>
+<p><strong>Bài tiếp theo:</strong> <a href="10-project-thuc-hanh-fithub-mini.html">10 - Project Thực Hành FitHub Mini</a></p>
+<hr>
+<blockquote>
+<p>💬 <strong>Tips</strong>: Luôn tạo <strong>Axios instance</strong> với interceptors để xử lý JWT token và error handling global. Tổ chức code theo <strong>Service Layer</strong> giống Spring Boot để dễ maintain!</p>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="chapter_8.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="chapter_10.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="chapter_8.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="chapter_10.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

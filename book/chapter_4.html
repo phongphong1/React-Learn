@@ -1,0 +1,935 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Chapter 4: State và useState Hook - React V1.0</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-5a670d9a.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-025f5852.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">React V1.0</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="04---state-và-usestate-hook"><a class="header" href="#04---state-và-usestate-hook">04 - State và useState Hook</a></h1>
+<h2 id="-mục-lục"><a class="header" href="#-mục-lục">📚 Mục Lục</a></h2>
+<ol>
+<li><a href="#state-là-gì">State là gì?</a></li>
+<li><a href="#usestate-hook">useState Hook</a></li>
+<li><a href="#cơ-chế-re-render">Cơ chế Re-render</a></li>
+<li><a href="#state-vs-props">State vs Props</a></li>
+<li><a href="#state-với-object-và-array">State với Object và Array</a></li>
+<li><a href="#multiple-state-variables">Multiple State Variables</a></li>
+<li><a href="#state-lifting">State Lifting (Nâng State lên)</a></li>
+<li><a href="#ví-dụ-thực-tế">Ví dụ thực tế</a></li>
+<li><a href="#bài-tập-thực-hành">Bài tập thực hành</a></li>
+</ol>
+<hr>
+<h2 id="-state-là-gì"><a class="header" href="#-state-là-gì">🎯 State là gì?</a></h2>
+<p><strong>State</strong> là dữ liệu nội bộ của một component, có thể <strong>thay đổi theo thời gian</strong> và <strong>trigger re-render</strong> khi thay đổi.</p>
+<h3 id="đặc-điểm-của-state"><a class="header" href="#đặc-điểm-của-state">Đặc điểm của State</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th><strong>Đặc điểm</strong></th><th><strong>Giải thích</strong></th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Mutable</strong></td><td>Có thể thay đổi (khác với Props là immutable)</td></tr>
+<tr><td><strong>Private</strong></td><td>Chỉ component sở hữu mới quản lý được</td></tr>
+<tr><td><strong>Reactive</strong></td><td>Khi state thay đổi → Component re-render</td></tr>
+<tr><td><strong>Local</strong></td><td>Mỗi instance component có state riêng</td></tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>💡 <strong>So sánh với Java</strong>: State giống như <strong>instance variable</strong> trong Java Class. Mỗi object có state riêng, và khi state thay đổi, UI tương ứng cũng thay đổi.</p>
+</blockquote>
+<pre><code class="language-java">// Java Class
+public class Counter {
+    private int count = 0; // Instance variable (giống State)
+
+    public void increment() {
+        this.count++; // Thay đổi state
+        render();     // Update UI
+    }
+}
+</code></pre>
+<pre><code class="language-jsx">// React Component
+function Counter() {
+  const [count, setCount] = useState(0); // State
+
+  const increment = () =&gt; {
+    setCount(count + 1); // Thay đổi state → Auto re-render
+  };
+
+  return &lt;button onClick={increment}&gt;Count: {count}&lt;/button&gt;;
+}
+</code></pre>
+<hr>
+<h2 id="-usestate-hook"><a class="header" href="#-usestate-hook">🪝 useState Hook</a></h2>
+<p><code>useState</code> là một Hook cho phép bạn thêm state vào functional component.</p>
+<h3 id="cú-pháp-cơ-bản"><a class="header" href="#cú-pháp-cơ-bản">Cú pháp cơ bản</a></h3>
+<pre><code class="language-jsx">import { useState } from 'react';
+
+function MyComponent() {
+  // Syntax: const [state, setState] = useState(initialValue);
+  const [count, setCount] = useState(0);
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;Count: {count}&lt;/p&gt;
+      &lt;button onClick={() =&gt; setCount(count + 1)}&gt;Increment&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<h3 id="phân-tích-usestate"><a class="header" href="#phân-tích-usestate">Phân tích useState</a></h3>
+<pre><code class="language-jsx">const [count, setCount] = useState(0);
+//     ↓       ↓              ↓
+//   State  Setter      Initial Value
+//  Variable Function
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th><strong>Thành phần</strong></th><th><strong>Vai trò</strong></th></tr>
+</thead>
+<tbody>
+<tr><td><code>count</code></td><td>Biến state (giá trị hiện tại)</td></tr>
+<tr><td><code>setCount</code></td><td>Function để update state</td></tr>
+<tr><td><code>useState(0)</code></td><td>Hook với giá trị khởi tạo = 0</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="các-kiểu-dữ-liệu-state"><a class="header" href="#các-kiểu-dữ-liệu-state">Các kiểu dữ liệu State</a></h3>
+<pre><code class="language-jsx">function StateExamples() {
+  // Number
+  const [age, setAge] = useState(25);
+
+  // String
+  const [name, setName] = useState("John");
+
+  // Boolean
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // Array
+  const [todos, setTodos] = useState([]);
+
+  // Object
+  const [user, setUser] = useState({ name: "", email: "" });
+
+  // Null/Undefined
+  const [data, setData] = useState(null);
+
+  return &lt;div&gt;State Examples&lt;/div&gt;;
+}
+</code></pre>
+<hr>
+<h2 id="-cơ-chế-re-render"><a class="header" href="#-cơ-chế-re-render">🔄 Cơ chế Re-render</a></h2>
+<h3 id="khi-nào-component-re-render"><a class="header" href="#khi-nào-component-re-render">Khi nào Component re-render?</a></h3>
+<ol>
+<li><strong>State thay đổi</strong> (qua setState function)</li>
+<li><strong>Props thay đổi</strong> (từ parent component)</li>
+<li><strong>Parent component re-render</strong></li>
+</ol>
+<h3 id="flow-của-re-render"><a class="header" href="#flow-của-re-render">Flow của Re-render</a></h3>
+<pre><code>[User Action (Click button)]
+         ↓
+[Call setState(newValue)]
+         ↓
+[React schedule re-render]
+         ↓
+[Component function chạy lại]
+         ↓
+[Generate new Virtual DOM]
+         ↓
+[Compare với Virtual DOM cũ (Diffing)]
+         ↓
+[Update Real DOM (chỉ phần thay đổi)]
+         ↓
+[Browser render UI mới]
+</code></pre>
+<h3 id="ví-dụ-minh-họa"><a class="header" href="#ví-dụ-minh-họa">Ví dụ minh họa</a></h3>
+<pre><code class="language-jsx">function Counter() {
+  const [count, setCount] = useState(0);
+
+  console.log("Component rendered, count =", count);
+  // Log này chạy MỖI LẦN component re-render
+
+  const handleClick = () =&gt; {
+    setCount(count + 1); // Trigger re-render
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;Count: {count}&lt;/p&gt;
+      &lt;button onClick={handleClick}&gt;Increment&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+
+// Output console:
+// Component rendered, count = 0  (Lần mount đầu tiên)
+// Component rendered, count = 1  (Click lần 1)
+// Component rendered, count = 2  (Click lần 2)
+</code></pre>
+<h3 id="setstate-là-asynchronous"><a class="header" href="#setstate-là-asynchronous">setState là Asynchronous</a></h3>
+<pre><code class="language-jsx">function Counter() {
+  const [count, setCount] = useState(0);
+
+  const handleClick = () =&gt; {
+    setCount(count + 1);
+    console.log(count); // ⚠️ Vẫn là giá trị CŨ, chưa update!
+    // Output: 0 (không phải 1)
+  };
+
+  return &lt;button onClick={handleClick}&gt;Count: {count}&lt;/button&gt;;
+}
+</code></pre>
+<h3 id="setstate-với-callback-function"><a class="header" href="#setstate-với-callback-function">setState với Callback Function</a></h3>
+<pre><code class="language-jsx">function Counter() {
+  const [count, setCount] = useState(0);
+
+  const handleClick = () =&gt; {
+    // ❌ SAI: Nếu click nhanh, có thể bị mất update
+    setCount(count + 1);
+    setCount(count + 1); // Cả 2 đều dùng count = 0 → Kết quả = 1
+
+    // ✅ ĐÚNG: Dùng callback để đảm bảo dùng giá trị mới nhất
+    setCount(prevCount =&gt; prevCount + 1);
+    setCount(prevCount =&gt; prevCount + 1); // Kết quả = 2
+  };
+
+  return &lt;button onClick={handleClick}&gt;Count: {count}&lt;/button&gt;;
+}
+</code></pre>
+<hr>
+<h2 id="-state-vs-props"><a class="header" href="#-state-vs-props">⚖️ State vs Props</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th><strong>Tiêu chí</strong></th><th><strong>State</strong></th><th><strong>Props</strong></th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Định nghĩa</strong></td><td>Dữ liệu nội bộ component</td><td>Dữ liệu truyền từ parent</td></tr>
+<tr><td><strong>Mutable</strong></td><td>✅ Có thể thay đổi (qua setState)</td><td>❌ Immutable (read-only)</td></tr>
+<tr><td><strong>Owner</strong></td><td>Component tự quản lý</td><td>Parent component quản lý</td></tr>
+<tr><td><strong>Trigger re-render</strong></td><td>✅ Có</td><td>✅ Có (khi props mới khác cũ)</td></tr>
+<tr><td><strong>Initial Value</strong></td><td>Đặt trong useState()</td><td>Truyền từ parent</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="so-sánh-với-java"><a class="header" href="#so-sánh-với-java">So sánh với Java</a></h3>
+<pre><code class="language-java">// Java Class
+public class UserProfile {
+    // State (instance variable)
+    private int viewCount = 0;
+
+    // Props (constructor parameters)
+    private String username;
+    private String email;
+
+    public UserProfile(String username, String email) {
+        this.username = username; // Props - không thay đổi
+        this.email = email;
+    }
+
+    public void incrementView() {
+        this.viewCount++; // State - có thể thay đổi
+    }
+}
+</code></pre>
+<pre><code class="language-jsx">// React Component
+function UserProfile({ username, email }) { // Props
+  const [viewCount, setViewCount] = useState(0); // State
+
+  const incrementView = () =&gt; {
+    setViewCount(viewCount + 1); // Update state
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;h2&gt;{username}&lt;/h2&gt;       {/* Props - read-only */}
+      &lt;p&gt;{email}&lt;/p&gt;            {/* Props - read-only */}
+      &lt;p&gt;Views: {viewCount}&lt;/p&gt; {/* State - mutable */}
+      &lt;button onClick={incrementView}&gt;Increment&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<hr>
+<h2 id="-state-với-object-và-array"><a class="header" href="#-state-với-object-và-array">📦 State với Object và Array</a></h2>
+<h3 id="update-object-state"><a class="header" href="#update-object-state">Update Object State</a></h3>
+<pre><code class="language-jsx">function UserForm() {
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    age: 0
+  });
+
+  // ❌ SAI: Mutate trực tiếp
+  const handleChange = (field, value) =&gt; {
+    user[field] = value; // Không trigger re-render!
+    setUser(user);       // React không biết object đã thay đổi
+  };
+
+  // ✅ ĐÚNG: Tạo object mới (immutable update)
+  const handleChange = (field, value) =&gt; {
+    setUser({
+      ...user,        // Copy tất cả properties cũ
+      [field]: value  // Override property cụ thể
+    });
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;input
+        value={user.name}
+        onChange={(e) =&gt; handleChange('name', e.target.value)}
+      /&gt;
+      &lt;input
+        value={user.email}
+        onChange={(e) =&gt; handleChange('email', e.target.value)}
+      /&gt;
+      &lt;input
+        type="number"
+        value={user.age}
+        onChange={(e) =&gt; handleChange('age', parseInt(e.target.value))}
+      /&gt;
+
+      &lt;p&gt;User: {JSON.stringify(user)}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<h3 id="update-array-state"><a class="header" href="#update-array-state">Update Array State</a></h3>
+<pre><code class="language-jsx">function TodoList() {
+  const [todos, setTodos] = useState([
+    { id: 1, text: "Learn React", completed: false }
+  ]);
+
+  // Thêm item mới
+  const addTodo = (text) =&gt; {
+    const newTodo = {
+      id: Date.now(),
+      text: text,
+      completed: false
+    };
+
+    setTodos([...todos, newTodo]); // Spread operator
+    // Hoặc: setTodos(prevTodos =&gt; [...prevTodos, newTodo]);
+  };
+
+  // Xóa item
+  const deleteTodo = (id) =&gt; {
+    setTodos(todos.filter(todo =&gt; todo.id !== id));
+  };
+
+  // Update item
+  const toggleTodo = (id) =&gt; {
+    setTodos(todos.map(todo =&gt;
+      todo.id === id
+        ? { ...todo, completed: !todo.completed }
+        : todo
+    ));
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;button onClick={() =&gt; addTodo("New Task")}&gt;Add Todo&lt;/button&gt;
+
+      &lt;ul&gt;
+        {todos.map(todo =&gt; (
+          &lt;li key={todo.id}&gt;
+            &lt;input
+              type="checkbox"
+              checked={todo.completed}
+              onChange={() =&gt; toggleTodo(todo.id)}
+            /&gt;
+            &lt;span style={{
+              textDecoration: todo.completed ? 'line-through' : 'none'
+            }}&gt;
+              {todo.text}
+            &lt;/span&gt;
+            &lt;button onClick={() =&gt; deleteTodo(todo.id)}&gt;Delete&lt;/button&gt;
+          &lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<blockquote>
+<p>⚠️ <strong>Quan trọng</strong>: Luôn tạo <strong>bản copy mới</strong> khi update object/array state. Đừng mutate trực tiếp!</p>
+</blockquote>
+<hr>
+<h2 id="-multiple-state-variables"><a class="header" href="#-multiple-state-variables">🔢 Multiple State Variables</a></h2>
+<h3 id="cách-1-nhiều-usestate"><a class="header" href="#cách-1-nhiều-usestate">Cách 1: Nhiều useState</a></h3>
+<pre><code class="language-jsx">function UserProfile() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [age, setAge] = useState(0);
+  const [isActive, setIsActive] = useState(true);
+
+  return (
+    &lt;div&gt;
+      &lt;input value={name} onChange={(e) =&gt; setName(e.target.value)} /&gt;
+      &lt;input value={email} onChange={(e) =&gt; setEmail(e.target.value)} /&gt;
+      &lt;input value={age} onChange={(e) =&gt; setAge(e.target.value)} /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<h3 id="cách-2-object-state-nhóm-lại"><a class="header" href="#cách-2-object-state-nhóm-lại">Cách 2: Object State (Nhóm lại)</a></h3>
+<pre><code class="language-jsx">function UserProfile() {
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    age: 0,
+    isActive: true
+  });
+
+  const updateField = (field, value) =&gt; {
+    setUser(prev =&gt; ({ ...prev, [field]: value }));
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;input
+        value={user.name}
+        onChange={(e) =&gt; updateField('name', e.target.value)}
+      /&gt;
+      &lt;input
+        value={user.email}
+        onChange={(e) =&gt; updateField('email', e.target.value)}
+      /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<h3 id="nên-dùng-cách-nào"><a class="header" href="#nên-dùng-cách-nào">Nên dùng cách nào?</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th><strong>Trường hợp</strong></th><th><strong>Nên dùng</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>Các state độc lập nhau</td><td>Multiple useState</td></tr>
+<tr><td>Các state liên quan (form data)</td><td>Object State</td></tr>
+<tr><td>State phức tạp, nhiều tầng</td><td>useReducer (học sau)</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="-state-lifting-nâng-state-lên"><a class="header" href="#-state-lifting-nâng-state-lên">⬆️ State Lifting (Nâng State lên)</a></h2>
+<p>Khi <strong>nhiều component cần chia sẻ cùng 1 state</strong>, hãy nâng state lên <strong>parent component gần nhất</strong>.</p>
+<h3 id="vấn-đề"><a class="header" href="#vấn-đề">Vấn đề</a></h3>
+<pre><code class="language-jsx">// ❌ Mỗi component có state riêng → Không đồng bộ
+function ComponentA() {
+  const [count, setCount] = useState(0);
+  return &lt;button onClick={() =&gt; setCount(count + 1)}&gt;A: {count}&lt;/button&gt;;
+}
+
+function ComponentB() {
+  const [count, setCount] = useState(0);
+  return &lt;button onClick={() =&gt; setCount(count + 1)}&gt;B: {count}&lt;/button&gt;;
+}
+</code></pre>
+<h3 id="giải-pháp-lifting-state-up"><a class="header" href="#giải-pháp-lifting-state-up">Giải pháp: Lifting State Up</a></h3>
+<pre><code class="language-jsx">// ✅ State ở parent, truyền xuống children qua props
+function ParentComponent() {
+  const [count, setCount] = useState(0); // State ở parent
+
+  return (
+    &lt;div&gt;
+      &lt;h2&gt;Total: {count}&lt;/h2&gt;
+      &lt;ComponentA count={count} setCount={setCount} /&gt;
+      &lt;ComponentB count={count} setCount={setCount} /&gt;
+    &lt;/div&gt;
+  );
+}
+
+function ComponentA({ count, setCount }) {
+  return &lt;button onClick={() =&gt; setCount(count + 1)}&gt;A: {count}&lt;/button&gt;;
+}
+
+function ComponentB({ count, setCount }) {
+  return &lt;button onClick={() =&gt; setCount(count + 1)}&gt;B: {count}&lt;/button&gt;;
+}
+</code></pre>
+<blockquote>
+<p>💡 <strong>So sánh với Java</strong>: Giống như khi bạn đưa shared variable lên class cha, thay vì để mỗi subclass có biến riêng.</p>
+</blockquote>
+<hr>
+<h2 id="-ví-dụ-thực-tế"><a class="header" href="#-ví-dụ-thực-tế">🔥 Ví dụ thực tế</a></h2>
+<h3 id="1-shopping-cart"><a class="header" href="#1-shopping-cart">1. Shopping Cart</a></h3>
+<pre><code class="language-jsx">import { useState } from 'react';
+
+function ShoppingCart() {
+  const [cart, setCart] = useState([]);
+
+  const products = [
+    { id: 1, name: "Laptop", price: 1000 },
+    { id: 2, name: "Phone", price: 500 },
+    { id: 3, name: "Tablet", price: 300 }
+  ];
+
+  const addToCart = (product) =&gt; {
+    // Kiểm tra product đã có trong cart chưa
+    const existingItem = cart.find(item =&gt; item.id === product.id);
+
+    if (existingItem) {
+      // Tăng quantity
+      setCart(cart.map(item =&gt;
+        item.id === product.id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      ));
+    } else {
+      // Thêm item mới
+      setCart([...cart, { ...product, quantity: 1 }]);
+    }
+  };
+
+  const removeFromCart = (productId) =&gt; {
+    setCart(cart.filter(item =&gt; item.id !== productId));
+  };
+
+  const updateQuantity = (productId, newQuantity) =&gt; {
+    if (newQuantity &lt;= 0) {
+      removeFromCart(productId);
+      return;
+    }
+
+    setCart(cart.map(item =&gt;
+      item.id === productId
+        ? { ...item, quantity: newQuantity }
+        : item
+    ));
+  };
+
+  const getTotalPrice = () =&gt; {
+    return cart.reduce((total, item) =&gt; total + (item.price * item.quantity), 0);
+  };
+
+  return (
+    &lt;div className="shopping-cart"&gt;
+      &lt;h2&gt;Products&lt;/h2&gt;
+      &lt;div className="products"&gt;
+        {products.map(product =&gt; (
+          &lt;div key={product.id} className="product-card"&gt;
+            &lt;h3&gt;{product.name}&lt;/h3&gt;
+            &lt;p&gt;${product.price}&lt;/p&gt;
+            &lt;button onClick={() =&gt; addToCart(product)}&gt;Add to Cart&lt;/button&gt;
+          &lt;/div&gt;
+        ))}
+      &lt;/div&gt;
+
+      &lt;h2&gt;Cart ({cart.length} items)&lt;/h2&gt;
+      {cart.length === 0 ? (
+        &lt;p&gt;Cart is empty&lt;/p&gt;
+      ) : (
+        &lt;&gt;
+          &lt;ul&gt;
+            {cart.map(item =&gt; (
+              &lt;li key={item.id}&gt;
+                {item.name} - ${item.price} x
+                &lt;input
+                  type="number"
+                  value={item.quantity}
+                  onChange={(e) =&gt; updateQuantity(item.id, parseInt(e.target.value))}
+                  min="1"
+                /&gt;
+                = ${item.price * item.quantity}
+                &lt;button onClick={() =&gt; removeFromCart(item.id)}&gt;Remove&lt;/button&gt;
+              &lt;/li&gt;
+            ))}
+          &lt;/ul&gt;
+
+          &lt;h3&gt;Total: ${getTotalPrice()}&lt;/h3&gt;
+        &lt;/&gt;
+      )}
+    &lt;/div&gt;
+  );
+}
+
+export default ShoppingCart;
+</code></pre>
+<h3 id="2-form-với-multiple-inputs"><a class="header" href="#2-form-với-multiple-inputs">2. Form với Multiple Inputs</a></h3>
+<pre><code class="language-jsx">function RegistrationForm() {
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    agreeTerms: false
+  });
+
+  const [errors, setErrors] = useState({});
+
+  const handleChange = (e) =&gt; {
+    const { name, value, type, checked } = e.target;
+
+    setFormData(prev =&gt; ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+  };
+
+  const validate = () =&gt; {
+    const newErrors = {};
+
+    if (!formData.username) newErrors.username = "Username is required";
+    if (!formData.email) newErrors.email = "Email is required";
+    if (!formData.password) newErrors.password = "Password is required";
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = "Passwords don't match";
+    }
+    if (!formData.agreeTerms) newErrors.agreeTerms = "You must agree to terms";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = (e) =&gt; {
+    e.preventDefault();
+
+    if (validate()) {
+      console.log("Form submitted:", formData);
+      alert("Registration successful!");
+    }
+  };
+
+  return (
+    &lt;form onSubmit={handleSubmit}&gt;
+      &lt;div&gt;
+        &lt;input
+          name="username"
+          value={formData.username}
+          onChange={handleChange}
+          placeholder="Username"
+        /&gt;
+        {errors.username &amp;&amp; &lt;span className="error"&gt;{errors.username}&lt;/span&gt;}
+      &lt;/div&gt;
+
+      &lt;div&gt;
+        &lt;input
+          name="email"
+          type="email"
+          value={formData.email}
+          onChange={handleChange}
+          placeholder="Email"
+        /&gt;
+        {errors.email &amp;&amp; &lt;span className="error"&gt;{errors.email}&lt;/span&gt;}
+      &lt;/div&gt;
+
+      &lt;div&gt;
+        &lt;input
+          name="password"
+          type="password"
+          value={formData.password}
+          onChange={handleChange}
+          placeholder="Password"
+        /&gt;
+        {errors.password &amp;&amp; &lt;span className="error"&gt;{errors.password}&lt;/span&gt;}
+      &lt;/div&gt;
+
+      &lt;div&gt;
+        &lt;input
+          name="confirmPassword"
+          type="password"
+          value={formData.confirmPassword}
+          onChange={handleChange}
+          placeholder="Confirm Password"
+        /&gt;
+        {errors.confirmPassword &amp;&amp; &lt;span className="error"&gt;{errors.confirmPassword}&lt;/span&gt;}
+      &lt;/div&gt;
+
+      &lt;div&gt;
+        &lt;label&gt;
+          &lt;input
+            name="agreeTerms"
+            type="checkbox"
+            checked={formData.agreeTerms}
+            onChange={handleChange}
+          /&gt;
+          I agree to terms and conditions
+        &lt;/label&gt;
+        {errors.agreeTerms &amp;&amp; &lt;span className="error"&gt;{errors.agreeTerms}&lt;/span&gt;}
+      &lt;/div&gt;
+
+      &lt;button type="submit"&gt;Register&lt;/button&gt;
+    &lt;/form&gt;
+  );
+}
+</code></pre>
+<hr>
+<h2 id="-bài-tập-thực-hành"><a class="header" href="#-bài-tập-thực-hành">📝 Bài tập thực hành</a></h2>
+<h3 id="bài-1-counter-với-nhiều-chức-năng"><a class="header" href="#bài-1-counter-với-nhiều-chức-năng">Bài 1: Counter với nhiều chức năng</a></h3>
+<p>Tạo Counter component với:</p>
+<ul>
+<li>State: <code>count</code> (khởi tạo = 0)</li>
+<li>Buttons: Increment (+1), Decrement (-1), Reset (về 0), Increment by 5 (+5)</li>
+<li>Hiển thị màu đỏ nếu count &lt; 0, màu xanh nếu count &gt; 10</li>
+</ul>
+<h3 id="bài-2-todo-list"><a class="header" href="#bài-2-todo-list">Bài 2: Todo List</a></h3>
+<p>Tạo Todo List với các chức năng:</p>
+<ul>
+<li>Thêm todo mới (input + button)</li>
+<li>Hiển thị danh sách todos</li>
+<li>Checkbox để đánh dấu completed (có gạch ngang)</li>
+<li>Button Delete để xóa todo</li>
+<li>Hiển thị tổng số todo và số todo đã hoàn thành</li>
+</ul>
+<h3 id="bài-3-search-và-filter"><a class="header" href="#bài-3-search-và-filter">Bài 3: Search và Filter</a></h3>
+<p>Tạo component với:</p>
+<ul>
+<li>Array products: <code>[{ id, name, price, category }, ...]</code></li>
+<li>Input search (tìm theo name)</li>
+<li>Select filter category</li>
+<li>Hiển thị danh sách đã được filter</li>
+</ul>
+<h3 id="bài-4-multi-step-form"><a class="header" href="#bài-4-multi-step-form">Bài 4: Multi-step Form</a></h3>
+<p>Tạo form đăng ký 3 bước:</p>
+<ul>
+<li>Step 1: Username, Email</li>
+<li>Step 2: Password, Confirm Password</li>
+<li>Step 3: Phone, Address</li>
+<li>Buttons: Next, Previous, Submit</li>
+<li>State để track: currentStep, formData</li>
+</ul>
+<hr>
+<h2 id="-tổng-kết"><a class="header" href="#-tổng-kết">🎓 Tổng kết</a></h2>
+<p>Sau bài học này, bạn đã hiểu:</p>
+<p>✅ State là dữ liệu nội bộ component, có thể thay đổi
+✅ <code>useState</code> Hook để thêm state vào functional component
+✅ setState trigger re-render, React tự động update UI
+✅ State vs Props: State mutable, Props immutable
+✅ Cách update object và array state (immutable)
+✅ State Lifting để chia sẻ state giữa components</p>
+<p><strong>Bài tiếp theo:</strong> <a href="05-useeffect-va-lifecycle.html">05 - useEffect và Lifecycle</a></p>
+<hr>
+<blockquote>
+<p>💬 <strong>Tips</strong>: setState là <strong>asynchronous</strong>. Nếu cần dùng state mới ngay sau khi set, hãy dùng <strong>callback function</strong> <code>setState(prev =&gt; prev + 1)</code> thay vì <code>setState(state + 1)</code>!</p>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="chapter_3.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="chapter_5.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="chapter_3.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="chapter_5.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>
